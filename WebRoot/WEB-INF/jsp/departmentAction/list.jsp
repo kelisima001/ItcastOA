@@ -3,13 +3,8 @@
 <html>
 <head>
     <title>部门列表</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script language="javascript" src="${pageContext.request.contextPath}/script/jquery.js"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/pageCommon.js" charset="utf-8"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/PageUtils.js" charset="utf-8"></script>
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/blue/pageCommon.css" />
-    <script type="text/javascript">
-    </script>
+    
+    <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body>
  
@@ -40,10 +35,10 @@
         <tbody id="TableData" class="dataContainer" datakey="departmentList">
         	<s:iterator value="#departmentList">
 			<tr class="TableDetail1 template">
-				<td>${name}&nbsp;</td>
+				<td><s:a action="departmentAction_list?parentId=%{id}">${name}&nbsp;</s:a></td>
 				<td>${parent.name}&nbsp;</td>
 				<td>${description}&nbsp;</td>
-				<td><s:a action="departmentAction_delete?id=%{id}" onClick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
+				<td><s:a action="departmentAction_delete?id=%{id}?parentId=%{parent.id}" onClick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
 					<s:a action="departmentAction_editUI?id=%{id}">修改</s:a>
 				</td>
 			</tr>
@@ -54,7 +49,8 @@
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
-            <s:a action="departmentAction_addUI"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+            <s:a action="departmentAction_addUI?parentId=%{parentId}"><img src="${pageContext.request.contextPath}/style/images/createNew.png" /></s:a>
+            <s:a action="departmentAction_list?parentId=%{#parent.parent.id}">返回上一级</s:a>
         </div>
     </div>
 </div>

@@ -3,11 +3,7 @@
 <html>
 <head>
 	<title>添加部门</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script language="javascript" src="${pageContext.request.contextPath}/script/jquery.js"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/pageCommon.js" charset="utf-8"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/PageUtils.js" charset="utf-8"></script>
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/blue/pageCommon.css" />
+    <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body>
 
@@ -24,7 +20,7 @@
 
 <!--显示表单内容-->
 <div id=MainArea>
-    <s:form action="departmentAction_add">
+    <s:form action="departmentAction_%{id==null?'add':'edit'}">
         <div class="ItemBlock_Title1"><!-- 信息说明<DIV CLASS="ItemBlock_Title1">
         	<IMG BORDER="0" WIDTH="4" HEIGHT="7" SRC="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 部门信息 </DIV>  -->
         </div>
@@ -33,8 +29,9 @@
         <div class="ItemBlockBorder">
             <div class="ItemBlock">
                 <table cellpadding="0" cellspacing="0" class="mainForm">
+                	<tr><td><s:hidden name="id"/></td></tr>
                     <tr><td width="100">上级部门</td>
-                        <td><select name="parentId" class="SelectStyle">
+                        <td><%-- <select name="parentId" class="SelectStyle">
                                 <option value="0" selected="selected">请选择部门</option>
                                 <option value="7">┠总经理室</option>
                                 <option value="1">┠市场部</option>
@@ -42,7 +39,10 @@
                                 <option value="3">　┠招生部</option>
                                 <option value="4">┠教学部</option>
                                 <option value="5">┠后勤部</option>
-                            </select>
+                            </select> --%>
+                            <s:select name="parentId" cssClass="SelectStyle" 
+                            list="#departmentList" listKey="id" listValue="name"
+                            headerKey="" headerValue="请选择部门" ></s:select>
                         </td>
                     </tr>
                     <tr><td>部门名称</td>

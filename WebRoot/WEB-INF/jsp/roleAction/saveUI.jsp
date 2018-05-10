@@ -3,14 +3,8 @@
 <html>
 <head>
 	<title>岗位设置</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<script language="javascript" src="${pageContext.request.contextPath}/script/jquery.js"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/pageCommon.js" charset="utf-8"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/PageUtils.js" charset="utf-8"></script>
     
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/blue/pageCommon.css" />
-    <script type="text/javascript"> 
-    </script>
+    <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body> 
 
@@ -27,7 +21,7 @@
 
 <!--显示表单内容-->
 <div id="MainArea">
-    <s:form action="roleAction_edit">
+    <s:form action="roleAction_%{id==null?'add':'edit'}">
     	<s:hidden name="id" />
         <div class="ItemBlock_Title1"><!-- 信息说明<DIV CLASS="ItemBlock_Title1">
         	<IMG BORDER="0" WIDTH="4" HEIGHT="7" SRC="${pageContext.request.contextPath}/style/blue/images/item_point.gif" /> 岗位信息 </DIV>  -->

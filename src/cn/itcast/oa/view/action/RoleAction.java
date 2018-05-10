@@ -28,7 +28,7 @@ public class RoleAction extends BaseAction<Role>{
 	
 	/**添加页面*/
 	public String addUI() throws Exception{
-		return "addUI";
+		return "saveUI";
 	}
 	
 	/**添加*/
@@ -50,7 +50,7 @@ public class RoleAction extends BaseAction<Role>{
 		/*this.name=role.getName();
 		this.description=role.getDescription();*/
 		ActionContext.getContext().getValueStack().push(role);
-		return "editUI";
+		return "saveUI";
 	}
 	
 	/**更新*/

@@ -12,10 +12,19 @@ import com.opensymphony.xwork2.ActionContext;
 public class DepartmentAction extends BaseAction<Department>{
 
 	private static final long serialVersionUID = -2196887819367231800L;
+	private Long parentId;
 	
 	/**列表*/
 	public String list() throws Exception{
-		List<Department> departmentList=departmentService.findAll();
+		List<Department> departmentList=null;
+		if(parentId==null){
+			departmentList=departmentService.findTopList();
+		}else{
+			departmentList=departmentService.findChildren(parentId);
+			Department parent=departmentService.getById(parentId);
+			ActionContext.getContext().put("parent", parent);
+		}
+				
 		ActionContext.getContext().put("departmentList", departmentList);
 		return "list";
 	}
@@ -28,7 +37,9 @@ public class DepartmentAction extends BaseAction<Department>{
 	
 	/**添加页面*/
 	public String addUI() throws Exception{
-		return "addUI";
+		List<Department> departmentList=departmentService.findAll();
+		ActionContext.getContext().put("departmentList", departmentList);
+		return "saveUI";
 	}
 	
 	/**添加*/
@@ -37,8 +48,11 @@ public class DepartmentAction extends BaseAction<Department>{
 		/*Role role=new Role();
 		role.setName(name);
 		role.setDescription(description);
-		//保存到数据库中
+		
 		departmentService.save(role);*/
+		//新建对象并封装属性,可以使用model
+		model.setParent(departmentService.getById(parentId));
+		//保存到数据库中
 		departmentService.save(model);
 		return "toList";
 	}
@@ -46,25 +60,41 @@ public class DepartmentAction extends BaseAction<Department>{
 	
 	/**更新页面*/
 	public String editUI() throws Exception{
+		//准备数据departmentList
+		List<Department> departmentList=departmentService.findAll();
+		ActionContext.getContext().put("departmentList", departmentList);
+		//准备回显的数据
 		Department department=departmentService.getById(model.getId());
+		ActionContext.getContext().getValueStack().push(department);
 		/*this.name=role.getName();
 		this.description=role.getDescription();*/
-		ActionContext.getContext().getValueStack().push(department);
-		return "editUI";
+		//新建对象并封装属性,可以使用model
+		/*department.setName(model.getName());
+		department.setDescription(model.getDescription());
+		department.setParent(departmentService.getById(parentId));//上级部门
+		*/
+		if(department.getParent()!=null){
+			parentId=department.getParent().getId();
+		}
+		return "saveUI";
 	}
 	
 	/**更新*/
 	public String edit() throws Exception{
+		//取出对象
 		Department department=departmentService.getById(model.getId());
 		
 		/*role.setName(name);
 		role.setDescription(description);*/
+		//设置需要修改的属性
 		department.setName(model.getName());
 		department.setDescription(model.getDescription());
+		department.setParent(departmentService.getById(parentId));//上级部门
+		//跟新
 		departmentService.update(department);
 		return "toList";
 	}
-
+	
 	public Department getModel() {
 		return model;
 	}
@@ -72,6 +102,16 @@ public class DepartmentAction extends BaseAction<Department>{
 	public void setModel(Department model) {
 		this.model = model;
 	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
+	
 
 	
 

@@ -7,5 +7,5 @@ import cn.itcast.oa.service.RoleService;
 public interface AllService {
 
 	@Resource
-	RoleService roleService;
+	protected RoleService roleService;
 }

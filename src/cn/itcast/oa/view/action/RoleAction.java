@@ -1,31 +1,18 @@
 package cn.itcast.oa.view.action;
 
 import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-
+import cn.itcast.oa.base.BaseAction;
 import cn.itcast.oa.domain.Role;
-import cn.itcast.oa.service.RoleService;
-
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
-public class RoleAction extends ActionSupport implements ModelDriven<Role>{
+public class RoleAction extends BaseAction<Role>{
+	
+	private static final long serialVersionUID = 144717824328093166L;
 
-	@Resource
-	private RoleService roleService;
-	private Role model=new Role();
-	
-	/*private Long id;
-	private String name;
-	private String description;*/
-	
 	/**列表*/
 	public String list() throws Exception{
 		List<Role> roleList=roleService.findAll();

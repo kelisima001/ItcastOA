@@ -1,34 +1,20 @@
 package cn.itcast.oa.view.action;
 
 import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import cn.itcast.oa.base.BaseAction;
+import cn.itcast.oa.domain.Department;
+import cn.itcast.oa.domain.Role;
 import cn.itcast.oa.domain.User;
-import cn.itcast.oa.service.UserService;
-
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
-public class UserAction extends ActionSupport implements ModelDriven<User>{
+public class UserAction extends BaseAction<User>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3666125199150566591L;
-	@Resource
-	private UserService userService;
-	private User model=new User();
-	
-	/*private Long id;
-	private String name;
-	private String description;*/
 	
 	/**列表*/
 	public String list() throws Exception{
@@ -45,6 +31,13 @@ public class UserAction extends ActionSupport implements ModelDriven<User>{
 	
 	/**添加页面*/
 	public String addUI() throws Exception{
+		//准备数据departmentList
+		// TODO 应是显示树状列表,先使用列表
+		List<Department> departmentList=departmentService.findAll();
+		ActionContext.getContext().put("departmentList",departmentList);
+		//准备数据roleList
+		List<Role> roleList=roleService.findAll();
+		ActionContext.getContext().put("roleList",roleList);
 		return "addUI";
 	}
 	

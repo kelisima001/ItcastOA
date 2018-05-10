@@ -6,7 +6,6 @@ import cn.itcast.oa.domain.User;
 import cn.itcast.oa.service.UserService;
 
 @Service
-
 public class UserServiceImpl extends BaseDaoImpl<User> implements UserService {
 
 }

@@ -1,34 +1,17 @@
 package cn.itcast.oa.view.action;
 
 import java.util.List;
-
-import javax.annotation.Resource;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-
+import cn.itcast.oa.base.BaseAction;
 import cn.itcast.oa.domain.Department;
-import cn.itcast.oa.service.DepartmentService;
-
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 
 @Controller
 @Scope("prototype")
-public class DepartmentAction extends ActionSupport implements ModelDriven<Department>{
+public class DepartmentAction extends BaseAction<Department>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2196887819367231800L;
-	@Resource
-	private DepartmentService departmentService;
-	private Department model=new Department();
-	
-	/*private Long id;
-	private String name;
-	private String description;*/
 	
 	/**列表*/
 	public String list() throws Exception{

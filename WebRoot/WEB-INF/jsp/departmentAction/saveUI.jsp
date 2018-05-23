@@ -51,6 +51,14 @@
                     <tr><td>职能说明</td>
                         <td><s:textarea name="description" cssClass="TextareaStyle"></s:textarea></td>
                     </tr>
+                    <tr>
+						<td width="100">产品销售权限</td>
+                        <td>
+                            <s:select list="#productList" name="productIds" listKey="id" listValue="name"
+                            cssClass="SelectStyle" multiple="true" size="10"></s:select>
+                          	  按住Ctrl键可以多选或取消选择
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

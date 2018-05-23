@@ -1,9 +1,11 @@
 package cn.itcast.oa.view.action;
 
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import cn.itcast.oa.base.BaseAction;
+import cn.itcast.oa.domain.Privilege;
 import cn.itcast.oa.domain.Role;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -12,6 +14,7 @@ import com.opensymphony.xwork2.ActionContext;
 public class RoleAction extends BaseAction<Role>{
 	
 	private static final long serialVersionUID = 144717824328093166L;
+	private Long[] privilegeIds;
 
 	/**列表*/
 	public String list() throws Exception{
@@ -64,13 +67,64 @@ public class RoleAction extends BaseAction<Role>{
 		roleService.update(role);
 		return "toList";
 	}
+	
+	/**权限页面*/
+	public String setPrivilegeUI() throws Exception{
+		//准备回显的数据
+		Role role=roleService.getById(model.getId());
+		ActionContext.getContext().getValueStack().push(role);
+		
+		//
+		if(role.getPrivileges()!=null){
+			privilegeIds=new Long[role.getPrivileges().size()];//新建数组长度是role权限组的长度
+			int index=0;
+			for(Privilege priv:role.getPrivileges()){
+				privilegeIds[index++]=priv.getId();//赋值,ids
+			}
+		}
+		
+		//准备数据privilegeList
+		List<Privilege> privilegeList=privilegeService.findAll();
+		ActionContext.getContext().put("privilegeList", privilegeList);
+		
+		return "setPrivilegeUI";
+		
+	}
+	
+	/**设置权限*/
+	public String setPrivilege() throws Exception{
+		//从数据库中获取原对象
+		Role role=roleService.getById(model.getId());
+		
+		//设置要修改的属性
+		List<Privilege> privilegeList=privilegeService.findById(privilegeIds);
+		role.setPrivileges(new HashSet<Privilege>(privilegeList));
+		//更新到数据库中
+		roleService.update(role);
+		
+		return "toList";
+	}
 
+	//------------------------
+	
 	public Role getModel() {
 		return model;
 	}
 
 	public void setModel(Role model) {
 		this.model = model;
+	}
+
+	public Long[] getPrivilegeIds() {
+		return privilegeIds;
+	}
+
+	public void setPrivilegeIds(Long[] privilegeIds) {
+		this.privilegeIds = privilegeIds;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	/*public Long getId() {

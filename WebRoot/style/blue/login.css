@@ -37,7 +37,7 @@ A:visited {
 }
 
 #LoginInfo {
-	padding-top: 30px;
+	padding-top: 0;
 	padding-left: 180px;
 	float: left;
 	width: 360px;

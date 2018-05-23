@@ -3,13 +3,7 @@
 <html>
 <head>
     <title>用户列表</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script language="javascript" src="${pageContext.request.contextPath}/script/jquery.js"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/pageCommon.js" charset="utf-8"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/PageUtils.js" charset="utf-8"></script>
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/blue/pageCommon.css" />
-    <script type="text/javascript">
-    </script>
+    <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body>
 
@@ -44,12 +38,16 @@
 	            <tr class="TableDetail1 template">
 	                <td>${loginName}&nbsp;</td>
 	                <td>${name}&nbsp;</td>
-	                <td>${department}&nbsp;</td>
-	                <td>${role}&nbsp;</td>
+	                <td>${department.name}&nbsp;</td>
+	                <td>
+	                	<s:iterator value="roles">
+	                		${name}
+	                	</s:iterator>
+	                </td>
 	                <td>${description}&nbsp;</td>
-	                <td><s:a action="userAction_delete?id=%{id}" onClick="return delConfirm()">删除</s:a>
+	                <td><s:a action="userAction_delete?id=%{id}" onclick="return delConfirm()">删除</s:a>
 	                    <s:a action="userAction_editUI?id=%{id}">修改</s:a>
-						<a href="#" onClick="return window.confirm('您确定要初始化密码为1234吗？')">初始化密码</a>
+						<s:a action="userAction_initPass?id=%{id}" onclick="return window.confirm('您确定要初始化密码为1234吗？')">初始化密码</s:a>
 	                </td>
 	            </tr>
             </s:iterator>

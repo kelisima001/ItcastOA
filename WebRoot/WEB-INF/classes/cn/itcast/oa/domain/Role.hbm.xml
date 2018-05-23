@@ -11,10 +11,16 @@
 		</id>
 		<property name="name"/>
 		<property name="description"/>
-		<!-- ?属性,本类与User的多对多关系 -->
+		<!-- users属性,本类与User的多对多关系 -->
 		<set name="users" table="itcast_user_role">
 			<key column="roleId"></key>
 			<many-to-many class="User" column="userId" />
+		</set>
+		
+		<!-- 与权限关系*对* -->
+		<set name="privileges" table="itcast_role_privilege" lazy="false">
+			<key column="roleId"></key>
+			<many-to-many class="Privilege" column="privilegeId" />
 		</set>
 	</class>
 	

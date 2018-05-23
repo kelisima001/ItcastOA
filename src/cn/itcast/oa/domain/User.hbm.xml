@@ -10,7 +10,7 @@
             <generator class="native"/>
 		</id>
 		<property name="name"/>
-		<property name="loginnName"/>
+		<property name="loginName"/>
 		<property name="password"/>
 		<property name="gender"/>
 		<property name="phoneNumber"/>
@@ -22,7 +22,7 @@
 		column="departmentId"/>
 		
 		<!-- 与岗位关系*对多 -->
-		<set name="roles" table="itcast_user_role">
+		<set name="roles" table="itcast_user_role" lazy="false">
 			<key column="userId"></key>
 			<many-to-many class="Role" column="roleId" />
 		</set>

@@ -3,13 +3,7 @@
 <html>
 <head>
     <title>岗位列表</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script language="javascript" src="${pageContext.request.contextPath}/script/jquery.js"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/pageCommon.js" charset="utf-8"></script>
-    <script language="javascript" src="${pageContext.request.contextPath}/script/PageUtils.js" charset="utf-8"></script>
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/style/blue/pageCommon.css" />
-    <script type="text/javascript">
-    </script>
+    <%@ include file="/WEB-INF/jsp/public/common.jspf" %>
 </head>
 <body>
  
@@ -45,7 +39,7 @@
 					<td>
 						<s:a action="roleAction_delete?id=%{id}" onclick="return delConfirm()">删除</s:a>
 						<s:a action="roleAction_editUI?id=%{id}">修改</s:a>
-						<a href="setPrivilegeUI.html">设置权限</a>
+						<s:a action="roleAction_setPrivilegeUI?id=%{id}">设置权限</s:a>
 					</td>
 				</tr>
 			</s:iterator>

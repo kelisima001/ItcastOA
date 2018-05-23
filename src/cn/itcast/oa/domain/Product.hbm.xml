@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.itcast.oa.domain">
+
+	<class name="Product" table="itcast_product">
+		<id name="id">
+            <generator class="native"/>
+		</id>
+		<property name="name"/>
+		<property name="description"/>
+		<property name="url"/>
+		<property name="createTime"/>	
+		<property name="updateTime"/>	
+		<property name="shortName"/>
+		<property name="shortDescription"/>	
+	
+	<!-- 产品和公司,多对多关系 -->
+	<set name="departments" table="itcast_department_product" lazy="false">
+		<key column="productId"></key>
+		<many-to-many class="Department" column="departmentId" />
+	</set>
+	
+	</class>
+	
+</hibernate-mapping>

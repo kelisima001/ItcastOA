@@ -64,9 +64,11 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 	
 	public List<T> findAll() {
 		// 
-		return getSession().createQuery(
-			"from "+clazz.getSimpleName())
-			.list();
+		List<T> list=getSession().createQuery(
+				"from "+clazz.getSimpleName())
+				.list();
+		System.out.println(list);
+		return list;
 		
 	}
 

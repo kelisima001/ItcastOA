@@ -2,28 +2,27 @@ package cn.itcast.oa.service.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import cn.itcast.oa.base.impl.BaseDaoImpl;
-import cn.itcast.oa.dao.DepartmentDao;
 import cn.itcast.oa.domain.Department;
 import cn.itcast.oa.service.DepartmentService;
 
 @Service
+@SuppressWarnings("unchecked")
 public class DepartmentServiceImpl extends BaseDaoImpl<Department> implements DepartmentService {
 
-	@Resource
-	private DepartmentDao departmentDao;
-	
 	public List<Department> findTopList() {
-		// TODO Auto-generated method stub
-		return departmentDao.findTopList();
+		return getSession().createQuery(
+				"from Department where parent is null")
+				.list();
 	}
 
 	public List<Department> findChildren(Long id) {
-		// TODO Auto-generated method stub
-		return departmentDao.findChildren(id);
+		return getSession().createQuery(
+				"from Department d where d.parent.id=?")
+				.setParameter(0, id)
+				.list();
 	}
 
 	

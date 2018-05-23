@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="cn.itcast.oa.domain">
+
+	<class name="Topic" table="itcast_topic">
+		<id name="id">
+            <generator class="native"/>
+		</id>
+		<property name="title"/>
+		<property name="content" type="text" length="65535"/>
+		<property name="postTime" type="timestamp"/>
+		<property name="ipAddress"/>
+		
+		<!-- 与作者关系多对1 -->
+		<many-to-one name="auther" class="User" column="autherId"/>
+		
+		<property name="type"/>
+		<property name="replyCount"/>
+		<property name="lastUpdateTime" type="timestamp"/>
+		
+		<!-- 与板块关系*对1 -->
+		<many-to-one name="forum" class="Forum" column="forumId"/>
+		
+		<!-- 与回复关系1对* -->
+		<set name="replies">
+			<key column="topicId"></key>
+			<one-to-many class="Reply" />
+		</set>
+		
+		<!-- 与最后回复关系1对1,采用基于外键的一对一映射关系,
+		本方有外键 -->
+		<many-to-one name="lastReply" class="Reply" column="lastReplyId"  unique="true"/>
+		
+	</class>
+	
+</hibernate-mapping>

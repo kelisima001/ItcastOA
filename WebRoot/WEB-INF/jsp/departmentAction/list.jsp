@@ -27,6 +27,7 @@
             	<td width="150px">部门名称</td>
 				<td width="150px">上级部门名称</td>
 				<td width="200px">职能说明</td>
+				<td width="200px">销售权限</td>
 				<td>相关操作</td>
             </tr>
         </thead>
@@ -38,7 +39,12 @@
 				<td><s:a action="departmentAction_list?parentId=%{id}">${name}&nbsp;</s:a></td>
 				<td>${parent.name}&nbsp;</td>
 				<td>${description}&nbsp;</td>
-				<td><s:a action="departmentAction_delete?id=%{id}?parentId=%{parent.id}" onClick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
+				<td>
+					<s:iterator value="products">
+	                	${name}
+	                </s:iterator>
+	            </td>
+				<td><s:a action="departmentAction_delete?id=%{id}&parentId=%{parent.id}" onclick="return window.confirm('这将删除所有的下级部门，您确定要删除吗？')">删除</s:a>
 					<s:a action="departmentAction_editUI?id=%{id}">修改</s:a>
 				</td>
 			</tr>

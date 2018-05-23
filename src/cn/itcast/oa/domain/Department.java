@@ -3,8 +3,9 @@ package cn.itcast.oa.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Department {
+public class Department  implements java.io.Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private Long id;
 	private Set<User> users=new HashSet<User>();//员工
 	private Department parent;//父部门
@@ -12,6 +13,7 @@ public class Department {
 		new HashSet<Department>();//子部门
 	private String name;//部门名
 	private String description;//描述
+	private Set<Product> products=new HashSet<Product>();
 	public Long getId() {
 		return id;
 	}
@@ -47,6 +49,15 @@ public class Department {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Set<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }
